@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
 const progressRoutes = require('./routes/progressRoutes');
 const cardsRoutes = require('./routes/cardsRoutes');
@@ -14,7 +15,16 @@ app.use('/api/progress', progressRoutes);
 app.use('/api/cards', cardsRoutes);
 
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', service: 'barkat-learn-api' });
+  const dbState = mongoose.connection.readyState;
+  const dbOk = dbState === 1; // 1 = connected
+  res.json({
+    status: 'ok',
+    service: 'barkat-learn-api',
+    mongodb: {
+      status: dbOk ? 'connected' : 'disconnected',
+      readyState: dbState, // 0=disconnected, 1=connected, 2=connecting, 3=disconnecting
+    },
+  });
 });
 
 app.get('/api/test', (req, res) => {

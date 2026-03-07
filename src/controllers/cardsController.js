@@ -2,8 +2,13 @@ const store = require('../store');
 const Progress = require('../models/Progress');
 const { ensureProgress } = require('./progressController');
 
+function normalizeCategoryForMatch(str) {
+  if (str == null || typeof str !== 'string') return '';
+  return str.toLowerCase().replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
 function categoryMatches(cardCategory, paramCategory) {
-  return (cardCategory || '').toLowerCase() === (paramCategory || '').toLowerCase();
+  return normalizeCategoryForMatch(cardCategory) === normalizeCategoryForMatch(paramCategory);
 }
 
 function getAllCards(req, res) {

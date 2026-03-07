@@ -69,23 +69,28 @@ async function getCardsByCategory(req, res) {
     const learnedSet = new Set(learnedIds);
     const savedSet = new Set(savedIds);
 
-    // Only unlearned cards in this category
+    // All cards in this category, ordered: unread first, then read
     const allInCategory = store.getAllCards().filter((card) => categoryMatches(card.category, category));
-    const unlearnedInCategory = allInCategory.filter((card) => !learnedSet.has(card.id));
-    const items = unlearnedInCategory.slice(offset, offset + limit);
+    const sorted = [...allInCategory].sort((a, b) => {
+      const aRead = learnedSet.has(a.id) ? 1 : 0;
+      const bRead = learnedSet.has(b.id) ? 1 : 0;
+      return aRead - bRead; // 0 (unread) before 1 (read)
+    });
 
+    const items = sorted.slice(offset, offset + limit);
     const itemsWithFlags = items.map((card) => ({
       ...card,
       isBookmarked: savedSet.has(card.id),
+      isLearned: learnedSet.has(card.id),
     }));
 
     res.json({
       items: itemsWithFlags,
-      total: unlearnedInCategory.length,
+      total: sorted.length,
       limit,
       offset,
       category,
-      hasMore: offset + limit < unlearnedInCategory.length,
+      hasMore: offset + limit < sorted.length,
     });
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch cards by category' });

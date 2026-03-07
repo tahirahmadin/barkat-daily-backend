@@ -1,7 +1,74 @@
 [
-  {"id":"facts-1","category":"Islamic Facts","cardType":"flash_card","title":"The five pillars of Islam","preview":"Shahadah, Salah, Zakat, Sawm, and Hajj form the foundation of a Muslim's faith and practice.","content":"# The five pillars of Islam\n\nThe five pillars are the core acts of worship that every Muslim is expected to fulfill:\n\n## 1. Shahadah (Declaration of faith)\n\nTo believe and declare that there is no god but Allah and that Muhammad is His messenger.\n\n## 2. Salah (Prayer)\n\nTo perform the five daily prayers at their appointed times.\n\n## 3. Zakat (Charity)\n\nTo give a portion of one's wealth to those in need, once a year if one meets the threshold.\n\n## 4. Sawm (Fasting)\n\nTo fast during the month of Ramadan from dawn until sunset.\n\n## 5. Hajj (Pilgrimage)\n\nTo perform the pilgrimage to Makkah at least once in a lifetime if one is able.\n\n---\n\nThese pillars unite Muslims in belief and practice across the world.","reference":"Based on hadith in Sahih al-Bukhari and Muslim","iconPlacement":"top","cardColor":"#6B8E5A","image":"https://cdn3d.iconscout.com/3d/premium/thumb/ramadhan-calender-3d-icon-png-download-11211796.png"},
-  {"id":"facts-2","category":"Islamic Facts","cardType":"flash_card","title":"The six pillars of Iman","preview":"Belief in Allah, His angels, His books, His messengers, the Last Day, and divine decree.","content":"# The six pillars of Iman (faith)\n\nA Muslim believes in:\n\n**1. Allah** – One God, no partners, no equals.\n\n**2. His Angels** – Created from light; they obey Allah and carry out His commands.\n\n**3. His Books** – The Scriptures revealed to prophets, including the Quran as the final revelation.\n\n**4. His Messengers** – From Adam to Muhammad (peace be upon them all).\n\n**5. The Last Day** – Resurrection, judgment, Paradise and Hell.\n\n**6. Divine decree** – That good and evil are by Allah's will and decree.\n\n---\n\n*Reference: Hadith of Jibril (Gabriel)*","reference":"Sahih Muslim","iconPlacement":"top","cardColor":"#7A6B8E","image":"https://cdn3d.iconscout.com/3d/premium/thumb/ramadhan-calender-3d-icon-png-download-11211796.png"},
-  {"id":"facts-3","category":"Islamic Facts","cardType":"flash_card","title":"Why Muslims pray five times a day","preview":"The five daily prayers were ordained during the Prophet's Night Journey (Isra and Mi'raj).","content":"# The five daily prayers\n\nSalah was made obligatory on the Night of Isra and Mi'raj, when the Prophet (peace and blessings be upon him) was taken from Makkah to Al-Aqsa and then through the heavens.\n\nInitially Allah commanded fifty prayers per day; after the Prophet's repeated requests, it was reduced to five. The five prayers are: Fajr, Dhuhr, Asr, Maghrib, and Isha.\n\n---\n\n*Reference: Sahih al-Bukhari 349, 7517*","reference":"Sahih al-Bukhari","iconPlacement":"bottom","cardColor":"#6B8E5A","image":"https://cdn3d.iconscout.com/3d/premium/thumb/ramadhan-calender-3d-icon-png-download-11211796.png"},
-  {"id":"facts-4","category":"Islamic Facts","cardType":"flash_card","title":"The Quran is preserved","preview":"Allah promised to preserve the Quran; it remains unchanged since revelation.","content":"# Preservation of the Quran\n\nAllah says: *\"Indeed, it is We who sent down the reminder (the Quran), and indeed We will be its guardian.\"* (Quran 15:9)\n\nThe Quran was revealed to the Prophet (SAW) over 23 years, memorized by the Companions, and written down in his lifetime. Today, millions memorize it entirely, and the text is identical worldwide.\n\n---\n\nNo other scripture has been preserved in the same way – both in writing and in the hearts of believers.","reference":"Quran 15:9","iconPlacement":"top","cardColor":"#8B5A3C","image":"https://cdn3d.iconscout.com/3d/premium/thumb/ramadhan-calender-3d-icon-png-download-11211796.png"},
-  {"id":"facts-5","category":"Islamic Facts","cardType":"flash_card","title":"Greeting in Islam","preview":"As-salamu alaykum (peace be upon you) and the full reply.","content":"# The Islamic greeting\n\n**As-salamu alaykum** – Peace be upon you.\n\n**Reply:** *Wa alaykumu s-salam (wa rahmatullahi wa barakatuhu)* – And upon you be peace (and the mercy of Allah and His blessings).\n\nThe Prophet (SAW) said spreading salam increases love and strengthens bonds. The one who initiates the greeting is closer to Allah.\n\n---\n\n*Reference: Sunan Abi Dawud, Tirmidhi*","reference":"Sunan Abi Dawud","iconPlacement":"top","cardColor":"#9B7A5F","image":"https://cdn3d.iconscout.com/3d/premium/thumb/ramadhan-calender-3d-icon-png-download-11211796.png"}
+  {
+    "id": "facts-1",
+    "category": "Islamic Facts",
+    "cardType": "flash_card",
+    "title": "The universe is expanding – the Quran said it first",
+    "preview": "Centuries before Hubble, the Quran described the heavens as expanding. Science caught up in the 20th century.",
+    "content": "# The Quran and the expanding universe\n\n*\"And the heaven We constructed with strength, and indeed, We are [its] expander.\"* — **Quran 51:47**\n\nWhen this verse was revealed over 1,400 years ago, telescopes didn't exist. The idea that space itself could be stretching was unknown to science.\n\nIn the 1920s, Edwin Hubble observed that galaxies are moving away from each other. Today we call it the expanding universe. The Quran didn't just hint at it – it stated it plainly.\n\n---\n\nA book that invites you to reflect on the heavens and the earth – and science keeps finding reasons to be amazed.",
+    "reference": "Quran 51:47",
+    "iconPlacement": "top",
+    "cardColor": "#1a365d",
+    "image": "https://cdn3d.iconscout.com/3d/premium/thumb/planet-3d-icon-png-download-8786136.png"
+  },
+  {
+    "id": "facts-2",
+    "category": "Islamic Facts",
+    "cardType": "flash_card",
+    "title": "Honey: a healing from your Lord",
+    "preview": "The Quran called honey a cure for people. Modern science keeps proving it right.",
+    "content": "# Honey in the Quran\n\n*\"There emerges from their bellies a drink, varying in colors, in which there is healing for people. Indeed in that is a sign for a people who give thought.\"* — **Quran 16:69**\n\nAllah points us to the bee and its honey as a sign and a healing. Today we know honey has antibacterial properties, helps wounds heal, soothes throats, and may support immunity.\n\nThe Quran didn't say \"honey is nice\" – it said there is **healing** in it and invited people to **think**. That combination of faith and reflection is at the heart of Islamic tradition.\n\n---\n\nEvery time science uncovers another benefit of honey, it's another reminder of that verse.",
+    "reference": "Quran 16:69",
+    "iconPlacement": "top",
+    "cardColor": "#B8860B",
+    "image": "https://cdn3d.iconscout.com/3d/premium/thumb/honey-3d-icon-png-download-9555363.png"
+  },
+  {
+    "id": "facts-3",
+    "category": "Islamic Facts",
+    "cardType": "flash_card",
+    "title": "Two seas that do not mix",
+    "preview": "The Quran describes a barrier between salt and fresh water. Oceanographers found it in the real world.",
+    "content": "# Where two seas meet\n\n*\"He released the two seas, meeting [side by side]; between them is a barrier [so] neither of them transgresses.\"* — **Quran 55:19–20**\n\nWhere the Gulf meets the ocean, or where a river pours into the sea, you don't get one uniform mix. There's a visible boundary – different color, temperature, and salinity. The Quran called this over 1,400 years ago.\n\nNo boats or submarines existed to explore such places. Yet the verse speaks of two bodies of water that meet but are kept distinct. It's a sign for those who reflect.\n\n---\n\nNext time you see a river meeting the sea, remember: the Quran already told you they don't simply merge.",
+    "reference": "Quran 55:19–20",
+    "iconPlacement": "bottom",
+    "cardColor": "#0c4a6e",
+    "image": "https://cdn3d.iconscout.com/3d/premium/thumb/high-tide-3d-icon-png-download-8938831.png"
+  },
+  {
+    "id": "facts-4",
+    "category": "Islamic Facts",
+    "cardType": "flash_card",
+    "title": "The first word revealed was \"Read\"",
+    "preview": "Islam's first divine command wasn't pray or fight – it was to read, in the name of the One who taught by the pen.",
+    "content": "# Read – the first command\n\nWhen the Angel Jibril (Gabriel) came to the Prophet Muhammad (peace be upon him) in the cave of Hira, the first word of the Quran revealed was:\n\n**\"Read.\"**\n\n*\"Read in the name of your Lord who created – created man from a clot. Read, and your Lord is the most generous, who taught by the pen, taught man that which he knew not.\"* — **Quran 96:1–5**\n\nIn a time when few could read, the faith that would preserve knowledge and build libraries started with a command to read and to honor the pen. That choice still defines Islam's relationship with learning.\n\n---\n\nEvery book, every school, every search for knowledge echoes that first word: **Read.**",
+    "reference": "Quran 96:1–5",
+    "iconPlacement": "top",
+    "cardColor": "#6B8E5A",
+    "image": "https://cdn3d.iconscout.com/3d/premium/thumb/muslim-man-reading-quran-3d-icon-png-download-11169928.png"
+  },
+  {
+    "id": "facts-5",
+    "category": "Islamic Facts",
+    "cardType": "flash_card",
+    "title": "The Black Stone: touched by millions, unchanged",
+    "preview": "Pilgrims have kissed and touched the Black Stone for over 1,400 years. It has never been replaced – and it never grew.",
+    "content": "# The Black Stone of the Kaaba\n\nThe Black Stone is set in a corner of the Kaaba in Makkah. During Hajj and Umrah, millions of people seek to touch or kiss it, following the practice of the Prophet (peace be upon him).\n\nWhat's striking isn't only its place in ritual – it's the fact that after countless hands and lips, through centuries, the Stone is still there. It wasn't replaced. It didn't \"grow\" in size through retellings. It remains a single, tangible link to the earliest days of Islam.\n\nThe Prophet said the Stone was sent down from Paradise and was whiter than milk – it was the sins of people that turned it black. Touching it is an act of humility and love, not worship of the stone itself.\n\n---\n\nA stone that connects billions of believers to one House and one Lord.",
+    "reference": "Sahih al-Bukhari, Tirmidhi",
+    "iconPlacement": "top",
+    "cardColor": "#374151",
+    "image": "https://cdn3d.iconscout.com/3d/premium/thumb/hajar-aswad-3d-icon-png-download-9617202.png"
+  },
+  {
+    "id": "facts-6",
+    "category": "Islamic Facts",
+    "cardType": "flash_card",
+    "title": "Every deed is written – even a smile",
+    "preview": "The Prophet said even a smile in the face of your brother is charity. Angels record it all.",
+    "content": "# Your smile is sadaqah\n\nThe Prophet (peace be upon him) said: *\"Your smile in the face of your brother is charity.\"* (Tirmidhi)\n\nIslam teaches that two angels sit with each person: one records good deeds, the other wrongs. But it goes further – the Prophet made clear that **good** includes the smallest acts: a smile, removing harm from the path, a kind word, or even greeting someone with peace.\n\nThat means every time you ease someone's day or lift their mood, it's not \"just\" kindness – it's an act that counts in the sight of Allah. You don't need wealth to build a record of good. You need intention and small, consistent mercy.\n\n---\n\nAmazing thought: your smile today could be written among your best deeds.",
+    "reference": "Sunan al-Tirmidhi",
+    "iconPlacement": "bottom",
+    "cardColor": "#7A6B8E",
+    "image": "https://cdn3d.iconscout.com/3d/premium/thumb/magic-book-3d-icon-png-download-10156130.png"
+  }
 ]

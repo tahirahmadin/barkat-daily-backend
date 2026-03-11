@@ -9,6 +9,11 @@ const { fixedUserEmail } = require('../config');
 
 let cachedCards = null;
 
+/** Clear card cache (e.g. after adding new category JSON). Next getAllCards() will reload from disk. */
+function clearCardCache() {
+  cachedCards = null;
+}
+
 function getNextId(prefix) {
   const existing = [...users.keys(), ...progress.keys()];
   let n = 1;
@@ -110,4 +115,5 @@ module.exports = {
   updateProgress,
   getAllCards,
   getCardById,
+  clearCardCache,
 };

@@ -21,6 +21,8 @@ router.get('/', getAllCards);
 router.get('/feed', authMiddleware, getFeedacards);
 router.get('/category/:category', authMiddleware, getCardsByCategory);
 router.get('/category/:category/completed', authMiddleware, getCompletedCardsByCategory);
+// Slug-based route for completed cards (use slug from library API: e.g. /quran-surah/completed)
+router.get('/:slug/completed', authMiddleware, getCompletedCardsByCategory);
 
 // Protected: saved cards and save/unsave (legacy aliases for bookmarks)
 router.get('/saved', authMiddleware, getSavedCards);

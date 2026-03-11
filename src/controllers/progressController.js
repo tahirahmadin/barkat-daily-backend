@@ -1,5 +1,6 @@
 const Progress = require('../models/Progress');
 const store = require('../store');
+const { getCategoryImage, getCategoryBackgroundColor, getCategoryDisplayName, getSlugFromCategoryKey, OVERVIEW_ICONS } = require('../data/categoryLibraryConfig');
 
 function getTodayDateString() {
   return new Date().toISOString().slice(0, 10);
@@ -275,31 +276,104 @@ async function getStatsByCategory(req, res) {
     const topic = learnedMap.size; // Count of categories with at least one learned card
 
     const allCards = store.getAllCards();
-    const categories = {};
+    const categoriesMap = {};
 
     for (const card of allCards) {
       const key = (card.category || 'uncategorised').toLowerCase();
-      if (!categories[key]) {
-        categories[key] = { total: 0, completed: 0 };
+      if (!categoriesMap[key]) {
+        categoriesMap[key] = {
+          total: 0,
+          completed: 0,
+          image: getCategoryImage(key),
+          backgroundColor: getCategoryBackgroundColor(key),
+        };
       }
-      categories[key].total += 1;
+      categoriesMap[key].total += 1;
     }
 
     for (const [category, set] of learnedMap.entries()) {
       const key = (category || 'uncategorised').toLowerCase();
-      if (!categories[key]) {
-        categories[key] = { total: 0, completed: 0 };
+      if (!categoriesMap[key]) {
+        categoriesMap[key] = {
+          total: 0,
+          completed: 0,
+          image: getCategoryImage(key),
+          backgroundColor: getCategoryBackgroundColor(key),
+        };
       }
-      categories[key].completed = set.size;
+      categoriesMap[key].completed = set.size;
     }
 
+    const categories = Object.entries(categoriesMap).map(([categoryKey, data]) => ({
+      slug: getSlugFromCategoryKey(categoryKey),
+      categoryName: getCategoryDisplayName(categoryKey),
+      total: data.total,
+      completed: data.completed,
+      image: data.image,
+      backgroundColor: data.backgroundColor,
+    }));
+
     res.json({
-      overview: { streak, consumed, topic },
+      overview: {
+        streak,
+        consumed,
+        topic,
+        icons: OVERVIEW_ICONS,
+      },
       categories,
     });
   } catch (err) {
     console.error('[getStatsByCategory] error', err);
     res.status(500).json({ error: 'Failed to get stats by category' });
+  }
+}
+
+/**
+ * Leaderboard: top 20 users by learnt cards. If current user (auth) is not in top 20,
+ * append them at the end with their rank (21 items).
+ */
+async function getLeaderboard(req, res) {
+  try {
+    const TOP = 20;
+    const allProgress = await Progress.find()
+      .populate('user', 'name profilePicture _id')
+      .lean();
+
+    const withCount = allProgress.map((doc) => {
+      const learnedIds = Array.isArray(doc.learnedByCategory)
+        ? Array.from(new Set(doc.learnedByCategory.flatMap((e) => e.cardIds || [])))
+        : [];
+      const cardsLearned = learnedIds.length;
+      const user = doc.user;
+      return {
+        userId: user?._id?.toString(),
+        name: user?.name || 'Anonymous',
+        profilePicture: user?.profilePicture || '',
+        cardsLearned,
+      };
+    });
+
+    const sorted = withCount.sort((a, b) => b.cardsLearned - a.cardsLearned);
+    const total = sorted.length;
+    const withRank = sorted.map((entry, i) => ({ rank: i + 1, ...entry }));
+
+    let items = withRank.slice(0, TOP);
+
+    const currentUserId = req.user?.userId;
+    if (currentUserId) {
+      const currentIndex = withRank.findIndex((e) => e.userId === currentUserId);
+      if (currentIndex >= 0 && currentIndex >= TOP) {
+        items = [...items, withRank[currentIndex]];
+      }
+    }
+
+    res.json({
+      items,
+      total,
+    });
+  } catch (err) {
+    console.error('[getLeaderboard] error', err);
+    res.status(500).json({ error: 'Failed to get leaderboard' });
   }
 }
 
@@ -310,4 +384,5 @@ module.exports = {
   updateProgress,
   markCardFinished,
   getStatsByCategory,
+  getLeaderboard,
 };

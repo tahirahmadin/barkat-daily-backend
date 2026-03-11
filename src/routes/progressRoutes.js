@@ -6,8 +6,11 @@ const {
     updateProgress,
     markCardFinished,
     getStatsByCategory,
+    getLeaderboard,
 } = require('../controllers/progressController');
-const { authMiddleware } = require('../middleware/auth');
+const { authMiddleware, optionalAuthMiddleware } = require('../middleware/auth');
+
+router.get('/leaderboard', optionalAuthMiddleware, getLeaderboard);
 
 // Authenticated user: progress is per JWT userId
 router.use(authMiddleware);

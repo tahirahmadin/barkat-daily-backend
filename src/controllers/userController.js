@@ -5,6 +5,7 @@ const { jwtSecret, appleClientId } = require('../config');
 const User = require('../models/User');
 const Progress = require('../models/Progress');
 const DeletedUser = require('../models/DeletedUser');
+const { uploadProfileImage, isUploadConfigured } = require('../services/uploadService');
 
 const SALT_ROUNDS = 10;
 
@@ -22,7 +23,7 @@ async function ensureProgressForUser(userId) {
 
 async function signup(req, res) {
   try {
-    const { email, password, name } = req.body;
+    const { email, password, name, fullName, profilePicture, language, preferences } = req.body;
     if (!email || !password) {
       return res.status(400).json({ error: 'Email and password are required' });
     }
@@ -36,11 +37,16 @@ async function signup(req, res) {
     }
 
     const passwordHash = bcrypt.hashSync(password, SALT_ROUNDS);
-    const user = await User.create({
+    const createPayload = {
       email: email.toLowerCase(),
       passwordHash,
-      name: name || email.split('@')[0],
-    });
+      name: (fullName || name || email.split('@')[0]).trim() || email.split('@')[0],
+    };
+    if (typeof profilePicture === 'string' && profilePicture.trim()) createPayload.profilePicture = profilePicture.trim();
+    if (typeof language === 'string' && language.trim()) createPayload.language = language.toLowerCase().trim();
+    if (Array.isArray(preferences)) createPayload.preferences = preferences;
+
+    const user = await User.create(createPayload);
     await ensureProgressForUser(user._id);
 
     const token = signToken(user._id.toString());
@@ -163,12 +169,13 @@ async function getMe(req, res) {
 
 async function updateMe(req, res) {
   try {
-    const { name, age, preferences, language } = req.body;
+    const { name, fullName, profilePicture, preferences, language } = req.body;
     const updates = {};
-    if (name !== undefined) updates.name = name;
-    if (age !== undefined) updates.age = age;
+    const nameVal = fullName ?? name;
+    if (nameVal !== undefined) updates.name = typeof nameVal === 'string' ? nameVal.trim() : nameVal;
+    if (profilePicture !== undefined) updates.profilePicture = typeof profilePicture === 'string' ? profilePicture.trim() : '';
     if (Array.isArray(preferences)) updates.preferences = preferences;
-    if (typeof language === 'string') updates.language = language.toLowerCase();
+    if (typeof language === 'string') updates.language = language.toLowerCase().trim();
 
     const user = await User.findByIdAndUpdate(req.user.userId, updates, { new: true });
     if (!user) {
@@ -180,6 +187,36 @@ async function updateMe(req, res) {
   } catch (err) {
     console.error('[updateMe] error', err);
     res.status(500).json({ error: 'Failed to update user' });
+  }
+}
+
+async function uploadAvatar(req, res) {
+  try {
+    if (!req.file || !req.file.buffer) {
+      return res.status(400).json({ error: 'No image file provided. Use multipart/form-data with field "avatar".' });
+    }
+    if (!isUploadConfigured()) {
+      return res.status(503).json({
+        error: 'Profile picture upload not configured. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.',
+      });
+    }
+
+    const userId = req.user.userId;
+    const { url } = await uploadProfileImage(req.file.buffer, userId);
+
+    const user = await User.findByIdAndUpdate(userId, { profilePicture: url }, { new: true });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    const userObj = user.toObject();
+    delete userObj.passwordHash;
+    res.json(userObj);
+  } catch (err) {
+    console.error('[uploadAvatar] error', err);
+    if (err.message && err.message.includes('Supabase not configured')) {
+      return res.status(503).json({ error: err.message });
+    }
+    res.status(500).json({ error: 'Failed to upload profile picture' });
   }
 }
 
@@ -217,5 +254,6 @@ module.exports = {
   appleLogin,
   getMe,
   updateMe,
+  uploadAvatar,
   deleteMe,
 };

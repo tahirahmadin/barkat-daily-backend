@@ -20,9 +20,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    age: {
-      type: Number,
-      min: 0,
+    profilePicture: {
+      type: String,
+      trim: true,
+      default: '',
     },
     preferences: {
       type: [String],

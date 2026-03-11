@@ -195,9 +195,9 @@ async function removeBookmark(req, res) {
 
 async function getCompletedCardsByCategory(req, res) {
   try {
-    const category = req.params.category || req.query.category;
+    const category = req.params.slug || req.params.category || req.query.category;
     if (!category) {
-      return res.status(400).json({ error: 'category is required' });
+      return res.status(400).json({ error: 'category or slug is required' });
     }
 
     const limit = Math.max(1, Math.min(parseInt(req.query.limit, 10) || 10, 100));
@@ -218,7 +218,7 @@ async function getCompletedCardsByCategory(req, res) {
       total: completedInCategory.length,
       limit,
       offset,
-      category,
+      slug: req.params.slug || undefined,
       hasMore: offset + limit < completedInCategory.length,
     });
   } catch (err) {

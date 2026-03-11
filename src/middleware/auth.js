@@ -30,4 +30,22 @@ function fixedUserMiddleware(req, res, next) {
   next();
 }
 
-module.exports = { authMiddleware, fixedUserMiddleware };
+/**
+ * Optional auth: attach req.user when valid Bearer token present; otherwise req.user is undefined.
+ */
+function optionalAuthMiddleware(req, res, next) {
+  const authHeader = req.headers.authorization;
+  const token = authHeader && authHeader.split(' ')[1];
+  if (!token) {
+    return next();
+  }
+  try {
+    const decoded = jwt.verify(token, jwtSecret);
+    req.user = { userId: decoded.userId };
+    next();
+  } catch {
+    next();
+  }
+}
+
+module.exports = { authMiddleware, fixedUserMiddleware, optionalAuthMiddleware };

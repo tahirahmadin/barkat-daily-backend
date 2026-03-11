@@ -7,4 +7,7 @@ module.exports = {
   fixedUserEmail: process.env.FIXED_USER_EMAIL || 'tahir@sayy.ai',
   mongoUri: process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/barkat-learn',
   appleClientId: process.env.APPLE_CLIENT_ID || 'com.barkat.reads', // iOS bundle ID by default
+  supabaseUrl: process.env.SUPABASE_URL || '',
+  supabaseServiceKey: process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || '',
+  supabaseStorageBucket: process.env.SUPABASE_STORAGE_BUCKET || 'profile-pictures',
 };

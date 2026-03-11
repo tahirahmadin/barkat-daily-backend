@@ -11,6 +11,7 @@ const CATEGORY_FILES = [
   'prophet-stories.json',
   'quran-surah.json',
   'islamic-facts.json',
+  'quotes.json',
 ];
 
 function loadCards() {

@@ -1,7 +1,7 @@
 {
   "name": "barkat-learn-backend",
   "version": "1.0.0",
-  "description": "Backend API for Barkat Reads app",
+  "description": "Backend API for Barkat Reads app Islamic Way",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",

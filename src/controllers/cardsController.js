@@ -1,6 +1,7 @@
 const store = require('../store');
 const Progress = require('../models/Progress');
 const { ensureProgress } = require('./progressController');
+const { getCardsDiagnostics } = require('../data/loadCards');
 
 function normalizeCategoryForMatch(str) {
   if (str == null || typeof str !== 'string') return '';
@@ -17,6 +18,24 @@ function getAllCards(req, res) {
     res.json(cards);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch cards' });
+  }
+}
+
+function getCardsHealth(req, res) {
+  try {
+    const diagnostics = getCardsDiagnostics();
+    const cachedCardsCount = store.getAllCards().length;
+    const filesWithErrors = diagnostics.files.filter((f) => !!f.error);
+    res.json({
+      ok: filesWithErrors.length === 0 && cachedCardsCount > 0,
+      dataDir: diagnostics.dataDir,
+      totalCardsFromFiles: diagnostics.totalCards,
+      cachedCardsCount,
+      files: diagnostics.files,
+      filesWithErrorsCount: filesWithErrors.length,
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to get cards health' });
   }
 }
 
@@ -228,6 +247,7 @@ async function getCompletedCardsByCategory(req, res) {
 
 module.exports = {
   getAllCards,
+  getCardsHealth,
   getFeedacards,
   getCardsByCategory,
   getSavedCards,

@@ -14,6 +14,47 @@ const CATEGORY_FILES = [
   'quotes.json',
 ];
 
+function getCardsDiagnostics() {
+  const dataDir = __dirname;
+  const files = CATEGORY_FILES.map((file) => {
+    const filePath = path.join(dataDir, file);
+    const fileInfo = {
+      file,
+      filePath,
+      exists: false,
+      cardsCount: 0,
+      error: null,
+    };
+
+    try {
+      if (!fs.existsSync(filePath)) {
+        fileInfo.error = 'File not found';
+        return fileInfo;
+      }
+
+      fileInfo.exists = true;
+      const raw = fs.readFileSync(filePath, 'utf8');
+      const arr = JSON.parse(raw);
+      if (!Array.isArray(arr)) {
+        fileInfo.error = 'JSON is not an array';
+        return fileInfo;
+      }
+
+      fileInfo.cardsCount = arr.length;
+      return fileInfo;
+    } catch (err) {
+      fileInfo.error = err.message;
+      return fileInfo;
+    }
+  });
+
+  return {
+    dataDir,
+    files,
+    totalCards: files.reduce((sum, f) => sum + (f.cardsCount || 0), 0),
+  };
+}
+
 function loadCards() {
   const dataDir = __dirname;
   const allCards = [];
@@ -34,4 +75,8 @@ function loadCards() {
   return allCards;
 }
 
-module.exports = { loadCards };
+module.exports = {
+  CATEGORY_FILES,
+  loadCards,
+  getCardsDiagnostics,
+};

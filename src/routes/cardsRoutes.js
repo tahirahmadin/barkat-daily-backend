@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
   getAllCards,
+  getCardsHealth,
   getFeedacards,
   getCardsByCategory,
   getSavedCards,
@@ -16,6 +17,7 @@ const { authMiddleware } = require('../middleware/auth');
 
 // Public: fetch all cards (no auth required)
 router.get('/', getAllCards);
+router.get('/health', getCardsHealth);
 
 // Feed and category now personalised by user bookmarks
 router.get('/feed', authMiddleware, getFeedacards);

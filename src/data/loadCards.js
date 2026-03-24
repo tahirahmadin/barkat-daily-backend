@@ -14,6 +14,17 @@ const CATEGORY_FILES = [
   'quotes.json',
 ];
 
+// Fallback for serverless bundles where fs paths like /var/task/src/data/*.json may not exist.
+// Static imports help bundlers include JSON content in the deployed artifact.
+const EMBEDDED_CATEGORY_DATA = {
+  'hadis.json': require('./hadis.json'),
+  'dua.json': require('./dua.json'),
+  'prophet-stories.json': require('./prophet-stories.json'),
+  'quran-surah.json': require('./quran-surah.json'),
+  'islamic-facts.json': require('./islamic-facts.json'),
+  'quotes.json': require('./quotes.json'),
+};
+
 function getCardsDiagnostics() {
   const dataDir = __dirname;
   const files = CATEGORY_FILES.map((file) => {
@@ -28,6 +39,12 @@ function getCardsDiagnostics() {
 
     try {
       if (!fs.existsSync(filePath)) {
+        const embedded = EMBEDDED_CATEGORY_DATA[file];
+        if (Array.isArray(embedded)) {
+          fileInfo.error = 'File not found on fs; using embedded fallback';
+          fileInfo.cardsCount = embedded.length;
+          return fileInfo;
+        }
         fileInfo.error = 'File not found';
         return fileInfo;
       }
@@ -56,20 +73,29 @@ function getCardsDiagnostics() {
 }
 
 function loadCards() {
-  const dataDir = __dirname;
   const allCards = [];
   for (const file of CATEGORY_FILES) {
-    const filePath = path.join(dataDir, file);
+    const filePath = path.join(__dirname, file);
     try {
       if (fs.existsSync(filePath)) {
         const raw = fs.readFileSync(filePath, 'utf8');
         const arr = JSON.parse(raw);
         if (Array.isArray(arr)) {
           allCards.push(...arr);
+          continue;
         }
       }
+      const embedded = EMBEDDED_CATEGORY_DATA[file];
+      if (Array.isArray(embedded)) {
+        allCards.push(...embedded);
+      }
     } catch (err) {
-      console.error(`Failed to load ${file}:`, err.message);
+      const embedded = EMBEDDED_CATEGORY_DATA[file];
+      if (Array.isArray(embedded)) {
+        allCards.push(...embedded);
+      } else {
+        console.error(`Failed to load ${file}:`, err.message);
+      }
     }
   }
   return allCards;
